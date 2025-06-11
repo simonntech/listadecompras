@@ -15,6 +15,7 @@ app.use(api); //monta todas as rotas definidas no módulo 'api' importado, e as 
 const host = 'localhost';
 const PORT = 3000;
 
+//levanta a conexão com o servidor na porta 3000
 app.listen(PORT, () => {
     console.log(`Servidor funcionando em http://${host}:${PORT}`);
 })

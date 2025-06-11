@@ -10,6 +10,24 @@ async function carregarLista() {
     itens.forEach(item => {
         const li = document.createElement('li');
         li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+        li.innerHTML = `
+            ${item.nome}
+            <button class="btn btn-danger btn-sm"> Deletar <i class="bi bi-x-circle-fill"></i></button>
+        `; // conteúdo do LI criado
+
+        // botão de deletar da lista
+        const btnDeletar = li.querySelector('button'); //dentro da constante LI, houve uma função nativa que selecionou o botão dentro do innerHTML
+        btnDeletar.addEventListener('click', async () => { //async retorna uma promise e podemos usar AWAIT dentro dela
+            //confirmação para deletar ou não
+            const confirmar = confirm(`Deseja excluir ${item.nome}?`) //abre uma janela para confirmar a exclusão, retorna booleano
+            if (confirmar) { //se confirmar for TRUE, então vai excluir
+                await fetch(`http://localhost:3000/itens/${item.nome}`, { //usado AWAIT pra esperar uma PROMISSE, declarado no ASYNC
+                method: 'DELETE' //tipo de requisição http para excluir uma rota
+            })
+            };
+            carregarLista();
+        })
+
         lista.appendChild(li);
     });
 }
