@@ -9,8 +9,7 @@ async function carregarLista() {
     lista.innerHTML = '';
     itens.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = item.nome;
-        li.classList.add('list-group-item')
+        li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
         lista.appendChild(li);
     });
 }

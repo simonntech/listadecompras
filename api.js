@@ -27,5 +27,20 @@ router.post('/itens', (req, res) => {
     }
 })
 
+// define uma rota DELETE para excluir os dados que já estão no servidor, com endpoint do nome do item a ser excluído
+
+router.delete('/itens/:nome', (req, res) => { //rota que responde a req HTTP DELETE, com a URL que a rota vai capturar, o ":nome" é um parâmetro dinâmico que será extraído da URL
+    const { nome } = req.params; //o objeto que contém os parâmetros da rota (o valor após /itens/), após a desestruturação para extrair o valor do parâmtro none
+    const index = lista.findIndex(item => item.nome === nome); // index retorna o índice do primeiro elemento que satisfaz a condição
+    if (index !== -1 ) { //findIndex retorna -1 quando não encontra, então pela lógica presume-se que encontrou algum resultado
+        lista.splice(index, 1); //remove 1 item no índice encontrado
+        res.status(200).json({ message: 'Item removido' });
+    } else {
+        res.status(404).json({ error: 'Item não encontrado' });
+    }
+})
+
+
+
 //exportando a constante "router" através de módulos
 module.exports = router;
